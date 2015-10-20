@@ -103,16 +103,13 @@ http.createServer(function (request,response){
             var sentData;
             console.log("POSITION FOR REAL: " + movingBoxLocation.x + " " + movingBoxLocation.y);
 
-            if(request.url == "/positionData") {
+            if(request.url == "/set-drake-pos") {
                 var dataObj = JSON.parse(receivedData);
-                if(dataObj.x >=0 && dataObj.y >= 0){
-    		     //Here a client is providing a new location for the moving box
-    		     //capture location of moving box from client
-    		       movingBoxLocation = JSON.parse(receivedData);
-    	           console.log('received data object: ', movingBoxLocation);
-                   console.log('type: ', typeof movingBoxLocation);
-                   sentData = movingBoxLocation;
-         	   }
+    		     //Here a client is providing a new location for Drake
+    		       drakePos = JSON.parse(receivedData);
+    	           console.log('received drake pos: ', drakePos);
+                   console.log('type: ', typeof drakePos);
+                   sentData = drakePos;
             }
             else if (request.url == "/players") {
                 console.log("in /players");
