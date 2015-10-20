@@ -42,26 +42,7 @@ var drawCanvas = function(){
     };
     futureImg.src = 'future.png';
 
-    // context.fillRect(0,0,canvas.width,canvas.height); //erase canvas
-   
-    // context.fillStyle = 'cornflowerblue';
-    // context.strokeStyle = 'blue';
-	
-    //draw moving box
-	// context.fillRect(player.x,
-	//                  player.y,
-	// 				 player.width,
-	// 				 player.height);
-	
-	// //draw moving box way points
-	// for(i in wayPoints){
-	// 	context.strokeRect(wayPoints[i].x,
-	// 	             wayPoints[i].y,
-	// 				 player.width,
-	// 				 player.height);
-	// }
- //    context.stroke();
-	
+    context.clearRect(0, 0, canvas.width, canvas.height);
 }
 
 function handleTimer(){
