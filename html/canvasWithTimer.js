@@ -11,7 +11,6 @@ var player = {	x: -100,
               	y: -100,
 				width: 100,
 				height: 100};
-//var player = {};
 
 var playerData;
 				 
@@ -28,25 +27,40 @@ var drawCanvas = function(){
     var context = canvas.getContext('2d');
 	
     context.fillStyle = 'white';
-    context.fillRect(0,0,canvas.width,canvas.height); //erase canvas
+
+    // draw drake
+    var drakeImg = new Image();
+    drakeImg.onload = function() {
+    	context.drawImage(drakeImg, playerData[0].x, playerData[0].y);
+    };
+    drakeImg.src = 'drake.png';
+
+    // draw future
+    var futureImg = new Image();
+    futureImg.onload = function() {
+    	context.drawImage(futureImg, playerData[1].x, playerData[1].y);
+    };
+    futureImg.src = 'future.png';
+
+    // context.fillRect(0,0,canvas.width,canvas.height); //erase canvas
    
-    context.fillStyle = 'cornflowerblue';
-    context.strokeStyle = 'blue';
+    // context.fillStyle = 'cornflowerblue';
+    // context.strokeStyle = 'blue';
 	
     //draw moving box
-	context.fillRect(player.x,
-	                 player.y,
-					 player.width,
-					 player.height);
+	// context.fillRect(player.x,
+	//                  player.y,
+	// 				 player.width,
+	// 				 player.height);
 	
-	//draw moving box way points
-	for(i in wayPoints){
-		context.strokeRect(wayPoints[i].x,
-		             wayPoints[i].y,
-					 player.width,
-					 player.height);
-	}
-    context.stroke();
+	// //draw moving box way points
+	// for(i in wayPoints){
+	// 	context.strokeRect(wayPoints[i].x,
+	// 	             wayPoints[i].y,
+	// 				 player.width,
+	// 				 player.height);
+	// }
+ //    context.stroke();
 	
 }
 
