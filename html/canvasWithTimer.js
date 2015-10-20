@@ -20,13 +20,19 @@ var timer; //used to control the free moving word
 var pollingTimer; //timer to poll server for location updates
 
 var deltaX, deltaY; //location where mouse is pressed
+
+// set up canvas
 var canvas = document.getElementById('canvas1'); //our drawing canvas
+var context = canvas.getContext('2d');
+	context.font = "30px Arial";
+	// Fill with gradient
+var gradient=context.createLinearGradient(0,0,canvas.width,0);
+	gradient.addColorStop("0","magenta");
+	gradient.addColorStop("0.5","blue");
+	gradient.addColorStop("1.0","red");
 
-var drawCanvas = function(){
-
-    var context = canvas.getContext('2d');
-	
-    context.fillStyle = 'white';
+var drawCanvas = function() {
+	context.fillStyle = gradient;
 
     // draw drake
     var drakeImg = new Image();
@@ -43,6 +49,13 @@ var drawCanvas = function(){
     futureImg.src = 'future.png';
 
     context.clearRect(0, 0, canvas.width, canvas.height);
+
+    if(currPlayer == 0) {
+		context.fillText("You are Drake!", 100, 50);
+	}
+	else if(currPlayer == 1) {
+		context.fillText("You are Future!", 100, 50);
+	}
 }
 
 function handleTimer(){
