@@ -104,14 +104,27 @@ http.createServer(function (request,response){
             console.log("POSITION FOR REAL: " + movingBoxLocation.x + " " + movingBoxLocation.y);
 
             if(request.url == "/set-drake-pos") {
-                var dataObj = JSON.parse(receivedData);
-    		     //Here a client is providing a new location for Drake
-    		       drakePos = JSON.parse(receivedData);
+                    //Here a client is providing a new location for Drake
+    		       var drakePos = JSON.parse(receivedData);
     	           console.log('received drake pos: ', drakePos);
                    console.log('type: ', typeof drakePos);
-                   sentData = drakePos;
+
+                   // set drake's coords to be what was recieved from client
+                   players[0].x = drakePos.x;
+                   players[0].y = drakePos.y;
+            }
+            if(request.url == "/set-future-pos") {
+                    //Here a client is providing a new location for Future
+                   var futurePos = JSON.parse(receivedData);
+                   console.log('received future pos: ', futurePos);
+                   console.log('type: ', typeof futurePos);
+
+                   // set future's coords to be what was recieved from client
+                   players[1].x = futurePos.x;
+                   players[1].y = futurePos.y;
             }
             else if (request.url == "/players") {
+                // request for player info array
                 console.log("in /players");
                 
                 console.log("receivedData" + receivedData);

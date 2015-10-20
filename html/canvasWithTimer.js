@@ -6,10 +6,10 @@ var setPosRoute;
 
 
 //intended for keyboard control					
-var movingBox = {x: 50,
-                 y: 50,
-				 width: 100,
-				 height: 100};
+var player = {	x: 50,
+              	y: 50,
+				width: 100,
+				height: 100};
 
 var playerData;
 				 
@@ -32,17 +32,17 @@ var drawCanvas = function(){
     context.strokeStyle = 'blue';
 	
     //draw moving box
-	context.fillRect(movingBox.x,
-	                 movingBox.y,
-					 movingBox.width,
-					 movingBox.height);
+	context.fillRect(player.x,
+	                 player.y,
+					 player.width,
+					 player.height);
 	
 	//draw moving box way points
 	for(i in wayPoints){
 		context.strokeRect(wayPoints[i].x,
 		             wayPoints[i].y,
-					 movingBox.width,
-					 movingBox.height);
+					 player.width,
+					 player.height);
 	}
     context.stroke();
 	
@@ -76,8 +76,8 @@ function pollingTimerHandler(){
 			console.log("typeof: " + typeof data);
 			//var locationData = JSON.parse(data);
 			var locationData = data;
-			movingBox.x = locationData.x;
-			movingBox.y = locationData.y;
+			player.x = locationData.x;
+			player.y = locationData.y;
 			});
 
 			// CHECK PLAYER STATUS
@@ -113,18 +113,18 @@ function handleKeyDown(e){
 	console.log("keydown code = " + e.which );
 		
 	var dXY = 5; //amount to move in both X and Y direction
-	if(e.which == UP_ARROW && movingBox.y >= dXY) 
-	   movingBox.y -= dXY;  //up arrow
-	if(e.which == RIGHT_ARROW && movingBox.x + movingBox.width + dXY <= canvas.width) 
-	   movingBox.x += dXY;  //right arrow
-	if(e.which == LEFT_ARROW && movingBox.x >= dXY) 
-	   movingBox.x -= dXY;  //left arrow
-	if(e.which == DOWN_ARROW && movingBox.y + movingBox.height + dXY <= canvas.height) 
-	   movingBox.y += dXY;  //down arrow
+	if(e.which == UP_ARROW && player.y >= dXY) 
+	   player.y -= dXY;  //up arrow
+	if(e.which == RIGHT_ARROW && player.x + player.width + dXY <= canvas.width) 
+	   player.x += dXY;  //right arrow
+	if(e.which == LEFT_ARROW && player.x >= dXY) 
+	   player.x -= dXY;  //left arrow
+	if(e.which == DOWN_ARROW && player.y + player.height + dXY <= canvas.height) 
+	   player.y += dXY;  //down arrow
 	
 	//upate server with position data
 	//may be too much traffic? 
-	var dataObj = {x: movingBox.x, y: movingBox.y}; 
+	var dataObj = {x: player.x, y: player.y}; 
 	//create a JSON string representation of the data object
 	var jsonString = JSON.stringify(dataObj);
   
@@ -138,7 +138,7 @@ function handleKeyDown(e){
 
 function handleKeyUp(e){
 	console.log("key UP: " + e.which);
-	var dataObj = {x: movingBox.x, y: movingBox.y}; 
+	var dataObj = {x: player.x, y: player.y}; 
 	console.log("new dataObj: " + JSON.stringify(dataObj));
 	//create a JSON string representation of the data object
 	var jsonString = JSON.stringify(dataObj);
