@@ -5,11 +5,13 @@ var currPlayer = -1;
 var setPosRoute;
 
 
-//intended for keyboard control					
-var player = {	x: 50,
-              	y: 50,
+// set initial coordinates to be negative
+// so that characters are initially hidden				
+var player = {	x: -100,
+              	y: -100,
 				width: 100,
 				height: 100};
+//var player = {};
 
 var playerData;
 				 
@@ -162,6 +164,10 @@ function selectDrake() {
 		setPosRoute = "set-drake-pos";
 		playerData[currPlayer].inUse = true;
 
+		// load initial positions from server
+		player.x = playerData[0].x;
+		player.y = playerData[0].y;
+
 		var jsonPlayerString = JSON.stringify(playerData);
 		console.log("select drake: " + jsonPlayerString);
 		$.post("players",
@@ -183,6 +189,10 @@ function selectFuture() {
 		currPlayer = 1;
 		setPosRoute = "set-future-pos";
 		playerData[currPlayer].inUse = true;
+
+		// load initial positions from server
+		player.x = playerData[1].x;
+		player.y = playerData[1].y;
 		
 		var jsonPlayerString = JSON.stringify(playerData);
 		console.log("select future: " + jsonPlayerString);
