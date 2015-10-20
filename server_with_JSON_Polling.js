@@ -31,9 +31,7 @@ var url = require('url');  //to parse url strings
 
 var counter = 1000; //to count invocations of function(req,res)
 
-//server maintained location of moving box
-var movingBoxLocation = {x:100,y:100}; //will be over written by clients
-
+//server maintained player info
 var players = [{name:"Drake", inUse:false, x: 100, y:100}, {name:"Future", inUse:false, x:500, y:100}];
 
 var ROOT_DIR = 'html'; //dir to serve static files from
@@ -83,26 +81,9 @@ http.createServer(function (request,response){
         console.log('received data: ', receivedData);
         console.log('type: ', typeof receivedData);
 		
-		//if it is a POST request then echo back the data.
-		/*
-		A post message will be interpreted as either a request for
-		the location of the moving box, or the location of the moving box
-		being set by a client.
-		If the .x and .y attributes are >= 0 
-		treat it as setting the location of the moving box.
-		If the .x and .y attributes are < 0 treat it as a request (poll)
-		for the location of the moving box.
-		In either case echo back the location of the moving box to whatever client
-		sent the post message.
-		
-		Can you think of a nicer API then using the numeric value of .x and .y
-		to indicate a set vs. get of the moving box location.
-		*/
 		if(request.method == "POST"){
             console.log("url: " + request.url);
             var sentData;
-            console.log("POSITION FOR REAL: " + movingBoxLocation.x + " " + movingBoxLocation.y);
-
             if(request.url == "/set-drake-pos") {
                     //Here a client is providing a new location for Drake
     		       var drakePos = JSON.parse(receivedData);
@@ -140,8 +121,7 @@ http.createServer(function (request,response){
                 }
                 sentData = players;
             }
-		   //echo back the location of the moving box to who ever
-		   //sent the POST message
+
            response.writeHead(200, {'Content-Type': MIME_TYPES["json"]}); 
            response.end(JSON.stringify(sentData)); //send just the JSON object
 		}
